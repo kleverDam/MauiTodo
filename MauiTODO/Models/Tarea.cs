@@ -13,33 +13,26 @@
         NoArchivada
     }
 
-    public class Tarea
+    public class Tarea : NotifyBase
     {
+        private static UsuarioLogin _usuarioActivo;
         private string _titulo;
         private string _descripcion;
         private Estado _estado;
         private string _usuario;
 
         // getter and setter
-        public string Titulo
+        public UsuarioLogin UsuarioActivo
         {
-            get { return _titulo; }
-            set { _titulo = value; }
+            get { return _usuarioActivo; }
+            set { _usuarioActivo = value; OnPropertyChanged(); }
         }
+
         public string Descripcion
         {
             get { return _descripcion; }
-            set { _descripcion = value; }
+            set { _descripcion = value; OnPropertyChanged(); }
         }
-        public Estado Estado
-        {
-            get { return _estado; }
-            set { _estado = value; }
-        }
-        public string Usuario
-        {
-            get { return _usuario; }
-            set { _usuario = value; }
-        }
+
     }
 }

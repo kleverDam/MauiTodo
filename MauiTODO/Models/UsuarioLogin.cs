@@ -4,7 +4,6 @@ namespace MauiTODO.Models
 {
     public class UsuarioLogin : NotifyBase
     {
-        private string _usuarioid;
         private string _username;
         private string _password;
         private bool _isVisibleUserNameError;
