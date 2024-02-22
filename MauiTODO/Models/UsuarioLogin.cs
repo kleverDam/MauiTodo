@@ -1,4 +1,6 @@
-﻿namespace MauiTODO.Models
+﻿using Microsoft.Maui.Controls.Handlers.Compatibility;
+
+namespace MauiTODO.Models
 {
     public class UsuarioLogin
     {

@@ -1,69 +1,112 @@
 ﻿
 using MauiTODO.Models;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace MauiTODO.ViewModels
 {
-    public class LoginPageViewModel
+    public class LoginPageViewModel : BaseViewModel
     {
-        //Borrar despues esto es temporal 
-        private ObservableCollection<UsuarioLogin> _usuarios;
-        public ObservableCollection<UsuarioLogin> Usuarios { get => _usuarios; set => _usuarios = value; }
+        private ObservableCollection<UsuarioLogin> _usuarios = new ObservableCollection<UsuarioLogin>();
+        public ObservableCollection<UsuarioLogin> Usuarios { get => _usuarios; set => SetProperty(ref _usuarios, value); }
 
-        private Command _login;
-        public Command LoginComan { get => _login; set => _login = value; }
-        //----------------
-        private string _username;
-        private string _password;
+        private LoginViewModel _userLogin;
+        public LoginViewModel UserLogin { get => _userLogin; set => SetProperty(ref _userLogin, value); }
 
+        private bool _isLoginAccess;
+        public bool IsLoginAccess { get => _isLoginAccess; private set => SetProperty(ref _isLoginAccess, value); }
 
-        public string UserName { get { return _username; }set { _username = value; } }
-        public string Password { get { return _password; }set { _password = value; } }
+        public IList<LoginViewModel> Logins { get; } = new ObservableCollection<LoginViewModel>();
 
-        public LoginPageViewModel() {
-            LoginComan = new Command(this.loginAcces);
-            this.Usuarios = new ObservableCollection<UsuarioLogin>();
+        public ICommand NewCommand { private get; set; }
+        public ICommand LoginCommand { private get; set; }
+        public ICommand CancelCommand { private get; set; }
+
+        public LoginPageViewModel()
+        {
             this.CargarUsuarios();
-           
 
+            NewCommand = new Command(
+                execute: () =>
+                {
+                    UserLogin = new LoginViewModel();
+                    IsLoginAccess = true;
+                    RefreshCanExecutes();
+                },
+                canExecute: () =>
+                {
+                    return !IsLoginAccess;
+                });
+
+            LoginCommand = new Command(
+                execute: () =>
+                {
+                    LoginAccess();
+                    UserLogin = null;
+                    IsLoginAccess = false;
+                    RefreshCanExecutes();
+                },
+                canExecute: () =>
+                {
+                    return UserLogin != null &&
+                           !string.IsNullOrWhiteSpace(UserLogin.UserName) &&
+                           !string.IsNullOrWhiteSpace(UserLogin.Password);
+                });
+
+            CancelCommand = new Command(
+               execute: () =>
+               {
+                   UserLogin = null;
+                   IsLoginAccess = false;
+                   RefreshCanExecutes();
+               },
+               canExecute: () =>
+               {
+                   return IsLoginAccess;
+               });
         }
 
-
-        private void loginAcces()
+        void RefreshCanExecutes()
         {
+            (NewCommand as Command)?.ChangeCanExecute();
+            (LoginCommand as Command)?.ChangeCanExecute();
+            (CancelCommand as Command)?.ChangeCanExecute();
+        }
 
-            if (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password)) {
-                // Crear un usuario temporal con los datos proporcionados
-                var usuarioTemporal = new UsuarioLogin { Username = UserName, Password = Password };
-                // Verificar si el usuario temporal existe en la lista de usuarios
+        private async void LoginAccess()
+        {
+            if (UserLogin != null && !string.IsNullOrWhiteSpace(UserLogin.UserName) && !string.IsNullOrWhiteSpace(UserLogin.Password))
+            {
+                var usuarioTemporal = new UsuarioLogin { Username = UserLogin.UserName, Password = UserLogin.Password };
                 var usuarioExiste = Usuarios.Any(u => u.Username == usuarioTemporal.Username && u.Password == usuarioTemporal.Password);
 
                 if (usuarioExiste)
                 {
-                    // Usuario existe
-
+                    // Muestra un mensaje de alerta indicando un acceso correcto
+                    await Application.Current.MainPage.DisplayAlert("Correcto", "Acceso correcto", "Aceptar");
                     Console.WriteLine("Acceso Correcto.");
+                    //await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
                 }
                 else
                 {
-                    // Usuario no existe
+                    // Muestra un mensaje de alerta indicando un error de usuario o contraseña incorrecta
+                    await Application.Current.MainPage.DisplayAlert("Error", "Usuario o contraseña incorrecta", "Aceptar");
                     Console.WriteLine("Error: Usuario o contraseña incorrecta.");
                 }
             }
             else
             {
+                // Muestra un mensaje de alerta indicando que el nombre de usuario y contraseña no pueden estar vacíos
+                await Application.Current.MainPage.DisplayAlert("Error", "El nombre de usuario y la contraseña no pueden estar vacíos", "Aceptar");
                 Console.WriteLine("Error: El nombre de usuario y la contraseña no pueden estar vacíos.");
             }
         }
 
-        private void CargarUsuarios() { 
-            Usuarios.Add(new UsuarioLogin {Username = "admin", Password = "a"});
-            Usuarios.Add(new UsuarioLogin {Username = "test", Password = "t"});
-            Usuarios.Add(new UsuarioLogin {Username = "klever", Password = "k"});
+        private void CargarUsuarios()
+        {
+            Usuarios.Add(new UsuarioLogin { Username = "admin", Password = "a" });
+            Usuarios.Add(new UsuarioLogin { Username = "test", Password = "t" });
+            Usuarios.Add(new UsuarioLogin { Username = "klever", Password = "k" });
         }
-
-
-
-            
     }
 }
