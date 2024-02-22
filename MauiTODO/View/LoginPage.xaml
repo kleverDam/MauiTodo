@@ -35,14 +35,14 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="1" Text="Bievenido" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
             <Label Grid.Row="2" Text="Inicia sesión para continuar" HorizontalOptions="Center" FontSize="Subtitle" />
-
+            
             <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="CenterAndExpand" WidthRequest="500" >
                 <Frame BackgroundColor="Transparent" BorderColor="LawnGreen" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
                     <StackLayout Orientation="Horizontal">
                         <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
-                            <Image Source="F:\dam2\Agustin_IG\DI\MauiProyect\MauiTODO\MauiTODO\Resources\Images\perfil_del_usuario.png" Aspect="AspectFill" Margin="0"/>
+                            <Image Source="perfil_del_usuario.png" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding UserName}" Placeholder="Usuario" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry Text="{Binding UsuarioLogin.Username}" Placeholder="Usuario" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                     </StackLayout>
                 </Frame>
                 <Frame BackgroundColor="Transparent" BorderColor="LawnGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
@@ -50,17 +50,19 @@
                         <Frame BackgroundColor="SkyBlue"  HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="F:\dam2\Agustin_IG\DI\MauiProyect\MauiTODO\MauiTODO\Resources\Images\password_icon.png" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Password}" Placeholder="Contraseña"  TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry Text="{Binding UsuarioLogin.Password}" Placeholder="Contraseña" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0" IsPassword="{Binding Source={x:Reference entryPasword}, Path=IsChecked}" />
+                        <CheckBox  IsChecked="True" x:Name="entryPasword"/>
                     </StackLayout>
                 </Frame>
+                <Label Grid.Row="2" Text="{Binding UsuarioLogin.UserNameError}" IsVisible="{Binding UsuarioLogin.IsVisibleUserNameError}"  TextColor="Red" FontSize="Default" FontAttributes="Bold"  HorizontalOptions="Center" />
                 <StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
                     <CheckBox IsChecked="False"/>
                     <Label Text="Guardar inicio de sesion" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                     <Label Text="Has olvidado tu contraseña" TextColor="#1D8348" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
-                    <Button Text="Acceder" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0"  Command="{Binding LoginCommand}"/>
-                    <Button Text="Cancelar" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="20,15,0,0"  Command="{Binding CancelCommand}"/>
+                    <Button Text="Acceder" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0"  Command="{Binding LoginComand}"/>
+                    <!--<Button Text="Cancelar" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="20,15,0,0"  Command="{Binding CancelCommand}"/>-->
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
                     <Label Text="Crear cuenta" TextColor="DarkGray" FontSize="Small"/>

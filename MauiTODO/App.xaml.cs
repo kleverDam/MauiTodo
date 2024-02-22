@@ -9,7 +9,8 @@ namespace MauiTODO
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new View.LoginPage());
+            //MainPage = new NavigationPage(new View.LoginPage());
+            MainPage = new AppShell();
         }
     }
 }
