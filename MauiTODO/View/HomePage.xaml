@@ -3,40 +3,92 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModel="clr-namespace:MauiTODO.ViewModels"
              x:Class="MauiTODO.View.HomePage"
-             Title="HomePage">
+             Title="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="TableHeaderLabel">
+                <Setter Property="BackgroundColor" Value="#3498db"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+
+            <Style TargetType="Label" x:Key="TableCellLabel">
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.BindingContext>
         <ViewModel:HomePageViewModel/>
     </ContentPage.BindingContext>
-    <ListView ItemsSource="{Binding Tareas}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding RowNumber}" FontAttributes="Bold"/>
-                        <Label Grid.Column="1" Text="Título" FontAttributes="Bold"/>
-                        <Label Grid.Column="2" Text="Descripción" FontAttributes="Bold"/>
-                        <Label Grid.Column="3" Text="Estado" FontAttributes="Bold"/>
-                        <Label Grid.Column="4" Text="Usuario" FontAttributes="Bold"/>
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Titulo}" />
-                        <Label Grid.Row="1" Grid.Column="2" Text="{Binding Descripcion}" />
-                        <Label Grid.Row="1" Grid.Column="3" Text="{Binding Estado}" />
-                        <Label Grid.Row="1" Grid.Column="4" Text="{Binding UsuarioActivo.Username}" />
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+
+    <!--Menu-->
+    <ContentPage.MenuBarItems >
+        <MenuBarItem Text="Menu" >
+            <MenuFlyoutItem Text="Alta tarea" Command="{Binding ComandoAgregarUbicacion}"/>
+            <MenuFlyoutItem Text="Baja tarea" Command="{Binding ComandoEditarUbicacion}"/>
+            <MenuFlyoutItem Text="Editar tarea" Command="{Binding ComandoEliminarUbicacion}"/>
+        </MenuBarItem>
+        <MenuBarItem Text="Usuario">
+            <MenuFlyoutItem Text="Salir" Command="{Binding CloseLoginComand}"/>
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+    <!--Contenido-->
+    <Grid RowSpacing="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#3498db" Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="1" Text="Título" Style="{StaticResource TableHeaderLabel}"/>
+            <Label Grid.Row="0" Grid.Column="2" Text="Descripción" Style="{StaticResource TableHeaderLabel}"/>
+            <Label Grid.Row="0" Grid.Column="3" Text="Estado" Style="{StaticResource TableHeaderLabel}"/>
+            <Label Grid.Row="0" Grid.Column="4" Text="Usuario" Style="{StaticResource TableHeaderLabel}"/>
+        </Grid>
+
+        <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Tareas}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="4*"/>
+          <ColumnDefinition Width="4*"/>
+          <ColumnDefinition Width="4*"/>
+          <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Titulo}" Style="{StaticResource TableCellLabel}"/>
+                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding Descripcion}" Style="{StaticResource TableCellLabel}"/>
+                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding Estado}" Style="{StaticResource TableCellLabel}"/>
+                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding UsuarioActivo.Username}" Style="{StaticResource TableCellLabel}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </ContentPage>

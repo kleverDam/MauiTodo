@@ -5,18 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewPage="clr-namespace:MauiTODO.View"
     xmlns:local="clr-namespace:MauiTODO"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Flyout">
 
 
 
     <ShellContent
-    Title="LoginPage"
+    Title="Login"
     ContentTemplate="{DataTemplate viewPage:LoginPage}"
-    Route="LoginPage" />
+    Route="LoginPage"/>
 
     <ShellContent
-        Title="HomePage"
+        Title="Home"
         ContentTemplate="{DataTemplate viewPage:HomePage}"
-        Route="MainPage" />
+        Route="MainPage"/>
 
 </Shell>

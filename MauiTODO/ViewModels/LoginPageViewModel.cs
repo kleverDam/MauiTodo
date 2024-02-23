@@ -9,17 +9,31 @@ namespace MauiTODO.ViewModels
 {
     public class LoginPageViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
         private Command _loginComan;
         private Models.UsuarioLogin _usuarioLogin;
+        private string _textUserName;
+        private string _textUserPassword;
         //private Models.Tarea _tarea;
 
         private ObservableCollection<UsuarioLogin> _usuarios;
         public ObservableCollection<UsuarioLogin> Usuarios { get => _usuarios; set => _usuarios = value; }
         public Command LoginComand { get => _loginComan; set => _loginComan = value; }
         public UsuarioLogin UsuarioLogin { get => _usuarioLogin; set => _usuarioLogin = value; }
+        public string TextUserName { get => _textUserName; set => _textUserName = value; }
+        public string TextUserPassword { get => _textUserPassword; set => _textUserPassword = value; }
+
         //public Tarea Tarea { get => _tarea; set => _tarea = value; }
         private bool _guardarInicioSesion;
 
+
+        //Borrar despues
         public bool GuardarInicioSesion
         {
             get { return _guardarInicioSesion; }
@@ -32,17 +46,15 @@ namespace MauiTODO.ViewModels
                 }
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+      
+       
         // Getter y Setter para _loginCommand
 
         public LoginPageViewModel()
         {
             UsuarioLogin = new UsuarioLogin();
             _loginComan = new Command(this.Login);
+
             Usuarios = new ObservableCollection<UsuarioLogin>();
             this.CargarUsuarios();
         }
@@ -81,8 +93,10 @@ namespace MauiTODO.ViewModels
                 if (Shell.Current != null)
                 {
                    
+
                    string usernameAndPassword = $"{UsuarioLogin.Username},{UsuarioLogin.Password}";
                    await Shell.Current.GoToAsync($"//MainPage?user={Uri.EscapeDataString(usernameAndPassword)}");
+                    
                 }
                 else
                 {
