@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:MauiTODO.ViewModels"
              x:Class="MauiTODO.View.HomePage"
              Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.BindingContext>
+        <ViewModel:HomePageViewModel/>
+    </ContentPage.BindingContext>
+    <ListView ItemsSource="{Binding Tareas}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding RowNumber}" FontAttributes="Bold"/>
+                        <Label Grid.Column="1" Text="Título" FontAttributes="Bold"/>
+                        <Label Grid.Column="2" Text="Descripción" FontAttributes="Bold"/>
+                        <Label Grid.Column="3" Text="Estado" FontAttributes="Bold"/>
+                        <Label Grid.Column="4" Text="Usuario" FontAttributes="Bold"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Titulo}" />
+                        <Label Grid.Row="1" Grid.Column="2" Text="{Binding Descripcion}" />
+                        <Label Grid.Row="1" Grid.Column="3" Text="{Binding Estado}" />
+                        <Label Grid.Row="1" Grid.Column="4" Text="{Binding UsuarioActivo.Username}" />
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>

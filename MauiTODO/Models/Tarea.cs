@@ -15,23 +15,33 @@
 
     public class Tarea : NotifyBase
     {
-        private static UsuarioLogin _usuarioActivo;
+        private static UsuarioLogin _usuarioLogin;
         private string _titulo;
         private string _descripcion;
         private Estado _estado;
-        private string _usuario;
 
         // getter and setter
         public UsuarioLogin UsuarioActivo
         {
-            get { return _usuarioActivo; }
-            set { _usuarioActivo = value; OnPropertyChanged(); }
+            get { return _usuarioLogin; }
+            set { _usuarioLogin = value; OnPropertyChanged(); }
         }
 
+        public string Titulo
+        {
+            get { return _titulo; }
+            set { _titulo = value; OnPropertyChanged(); }
+        }
         public string Descripcion
         {
             get { return _descripcion; }
             set { _descripcion = value; OnPropertyChanged(); }
+        }
+
+        public Estado Estado
+        {
+            get { return _estado; }
+            set { _estado = value; OnPropertyChanged(); }
         }
 
     }

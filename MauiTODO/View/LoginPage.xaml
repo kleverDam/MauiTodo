@@ -33,9 +33,8 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="1" Text="Bievenido" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
-            <Label Grid.Row="2" Text="Inicia sesión para continuar" HorizontalOptions="Center" FontSize="Subtitle" />
-            
+            <Label Grid.Row="1" TextColor="Black" Text="Bievenido" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
+            <Label Grid.Row="2" TextColor="Black" Text="Inicia sesión para continuar" HorizontalOptions="Center" FontSize="Subtitle" />
             <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="CenterAndExpand" WidthRequest="500" >
                 <Frame BackgroundColor="Transparent" BorderColor="LawnGreen" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
                     <StackLayout Orientation="Horizontal">
@@ -56,7 +55,7 @@
                 </Frame>
                 <Label Grid.Row="2" Text="{Binding UsuarioLogin.UserNameError}" IsVisible="{Binding UsuarioLogin.IsVisibleUserNameError}"  TextColor="Red" FontSize="Default" FontAttributes="Bold"  HorizontalOptions="Center" />
                 <StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
-                    <CheckBox IsChecked="False"/>
+                    <CheckBox IsChecked="{Binding GuardarInicioSesion}" />
                     <Label Text="Guardar inicio de sesion" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                     <Label Text="Has olvidado tu contraseña" TextColor="#1D8348" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                 </StackLayout>
