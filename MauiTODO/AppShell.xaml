@@ -6,9 +6,7 @@
     xmlns:viewPage="clr-namespace:MauiTODO.View"
     xmlns:local="clr-namespace:MauiTODO"
     Shell.FlyoutBehavior="Flyout">
-
-
-
+    
     <ShellContent
     Title="Login"
     ContentTemplate="{DataTemplate viewPage:LoginPage}"

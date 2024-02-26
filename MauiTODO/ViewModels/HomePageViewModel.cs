@@ -41,13 +41,13 @@ namespace MauiTODO.ViewModels
         }
         public HomePageViewModel(string usernameAndPassword)
         {
-            _usuario = new UsuarioLogin();
-            var parts = usernameAndPassword.Split(',');
-            if (parts.Length >= 2)
-            {
-                UsuarioLogin.Username = parts[0];
-                UsuarioLogin.Password = parts[1];
-            }
+            //_usuario = new UsuarioLogin();
+            //var parts = usernameAndPassword.Split(',');
+            //if (parts.Length >= 2)
+            //{
+            //    UsuarioLogin.Username = parts[0];
+            //    UsuarioLogin.Password = parts[1];
+            //}
            
         }
 
@@ -85,3 +85,4 @@ namespace MauiTODO.ViewModels
      
     }
 }
+    

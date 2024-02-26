@@ -1,5 +1,4 @@
-﻿
-namespace MauiTODO.Models
+﻿namespace MauiTODO.Models
 {
     public class Tarea : NotifyBase
     {

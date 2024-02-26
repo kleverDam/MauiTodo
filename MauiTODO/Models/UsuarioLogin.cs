@@ -1,8 +1,6 @@
 ﻿using Microsoft.Maui.Controls.Handlers.Compatibility;
-
 namespace MauiTODO.Models
-{
-    public class UsuarioLogin : NotifyBase
+{  public class UsuarioLogin : NotifyBase
     {
         private string _username;
         private string _password;

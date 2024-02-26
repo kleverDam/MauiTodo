@@ -1,10 +1,10 @@
 ﻿using MauiTODO.Models;
-
+using System.Collections.ObjectModel;
 namespace MauiTODO.Services
 {
     public interface ITareas
     {
-        public Task<List<Tarea>> ObtenerTareas();
+        public Task<ObservableCollection<Tarea>> ObtenerTareas();
         public Task<Boolean> checkLogin();
     }
 }

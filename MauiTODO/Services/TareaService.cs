@@ -1,6 +1,5 @@
 ﻿using MauiTODO.Models;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -31,9 +30,5 @@ namespace MauiTODO.Services
             return tareaData;
         }
 
-        Task<List<Tarea>> ITareas.ObtenerTareas()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
