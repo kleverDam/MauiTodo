@@ -46,9 +46,9 @@
                 </Frame>
                 <Frame BackgroundColor="Transparent" BorderColor="LawnGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
                     <StackLayout Orientation="Horizontal">
-                        <Frame BackgroundColor="SkyBlue"  HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                        <    BackgroundColor="SkyBlue"  HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="F:\dam2\Agustin_IG\DI\MauiProyect\MauiTODO\MauiTODO\Resources\Images\password_icon.png" Aspect="AspectFill" Margin="0"/>
-                        </Frame>
+                        </>
                         <Entry Text="{Binding UsuarioLogin.Password}" Placeholder="Contraseña" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0" IsPassword="{Binding Source={x:Reference entryPasword}, Path=IsChecked}" />
                         <CheckBox  IsChecked="True" x:Name="entryPasword"/>
                     </StackLayout>
@@ -63,7 +63,7 @@
                     <Button Text="Acceder" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0"  Command="{Binding LoginComand}"/>
                     <!--<Button Text="Cancelar" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="20,15,0,0"  Command="{Binding CancelCommand}"/>-->
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">    
                     <Label Text="Crear cuenta" TextColor="DarkGray" FontSize="Small"/>
                     <Label Text="Iniciar sesion" Margin="15,0,0,0" TextColor="#1D8348"  FontAttributes="Bold"  FontSize="Small"/>
                 </StackLayout>

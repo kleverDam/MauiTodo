@@ -13,11 +13,11 @@ namespace MauiTODO.ViewModels
         private Command _editarTareaComan;
         private Models.UsuarioLogin _usuario;
         private Models.Tarea _tarea;
-        private Command _altaTarea;
-        private Command _bajaTarea;
-        private Command _editarTarea;
-        private Boolean _isEditTarea;
-        private Boolean _isArchived;
+        //private Command _altaTarea;
+        //private Command _bajaTarea;
+        //private Command _editarTarea;
+        //private Boolean _isEditTarea;
+        //private Boolean _isArchived;
 
         public Command CloseLoginComand { get => _closeLoginComan; set => _closeLoginComan = value; }
         public Command AltaTareaComan{ get => _altaTareaComan; set => _altaTareaComan = value; }
@@ -38,9 +38,6 @@ namespace MauiTODO.ViewModels
             _altaTareaComan = new Command(this.CloseLogin);
             _bajaTareaComan = new Command(this.CloseLogin);
             _editarTareaComan = new Command(this.CloseLogin);
-            Tarea = new Tarea();
-            Tareas = new ObservableCollection<Tarea>();
-            CargarTareas();
         }
         public HomePageViewModel(string usernameAndPassword)
         {
@@ -51,18 +48,8 @@ namespace MauiTODO.ViewModels
                 UsuarioLogin.Username = parts[0];
                 UsuarioLogin.Password = parts[1];
             }
-            Tarea = new Tarea();
-                Tareas = new ObservableCollection<Tarea>();
-            CargarTareas();
+           
         }
-
-
-
-
-
-
-
-
 
         private async void CloseLogin()
         {
@@ -95,12 +82,6 @@ namespace MauiTODO.ViewModels
                 Console.WriteLine($"Error al dar de alta una tarea: {ex.Message}");
             }
         }
-        private void CargarTareas()
-        {
-            // Agregar algunas tareas de ejemplo
-            Tareas.Add(new Tarea { Titulo = "Tarea 1", Descripcion = "Descripción de la tarea 1", Estado = Estado.Archivada, UsuarioActivo = new UsuarioLogin { Username = "Usuario1" } });
-            Tareas.Add(new Tarea { Titulo = "Tarea 2", Descripcion = "Descripción de la tarea 2", Estado = Estado.Archivada, UsuarioActivo = new UsuarioLogin { Username = "Usuario2" } });
-            Tareas.Add(new Tarea { Titulo = "Tarea 3", Descripcion = "Descripción de la tarea 3", Estado = Estado.NoArchivada, UsuarioActivo = new UsuarioLogin { Username = "Usuario3" } });
-        }
+     
     }
 }

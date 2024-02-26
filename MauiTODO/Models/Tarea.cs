@@ -1,47 +1,42 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    namespace MauiTODO.Models
-    {
-    // Enumeration for task status
-    public enum Estado
-    {
-        Archivada,
-        NoArchivada
-    }
-
+﻿
+namespace MauiTODO.Models
+{
     public class Tarea : NotifyBase
     {
-        private static UsuarioLogin _usuarioLogin;
-        private string _titulo;
-        private string _descripcion;
-        private Estado _estado;
+            private int _id;
+            private string _name;
+            private string _descripcion;
+            private string _estado_tarea;
+            private int _usuarioLogin;
 
-        // getter and setter
-        public UsuarioLogin UsuarioActivo
+            // getter and setter
+            public int TareasId
+            {
+                get { return _id; }
+                set { _id = value; OnPropertyChanged(); }
+            }
+            public string Titulo
+            {
+                get { return _name; }
+                set { _name = value; OnPropertyChanged(); }
+            }
+
+            public string Descripcion
+            {
+                get { return _descripcion; }
+                set { _descripcion = value; OnPropertyChanged(); }
+            }
+
+            public string Estado
+            {
+                get { return _estado_tarea; }
+                set { _estado_tarea = value; OnPropertyChanged(); }
+            }
+
+            public int UsuarioActivo
         {
             get { return _usuarioLogin; }
             set { _usuarioLogin = value; OnPropertyChanged(); }
-        }
-
-        public string Titulo
-        {
-            get { return _titulo; }
-            set { _titulo = value; OnPropertyChanged(); }
-        }
-        public string Descripcion
-        {
-            get { return _descripcion; }
-            set { _descripcion = value; OnPropertyChanged(); }
-        }
-
-        public Estado Estado
-        {
-            get { return _estado; }
-            set { _estado = value; OnPropertyChanged(); }
         }
 
     }

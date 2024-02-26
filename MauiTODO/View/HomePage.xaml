@@ -84,7 +84,7 @@
                             <Label Grid.Row="0" Grid.Column="1" Text="{Binding Titulo}" Style="{StaticResource TableCellLabel}"/>
                             <Label Grid.Row="0" Grid.Column="2" Text="{Binding Descripcion}" Style="{StaticResource TableCellLabel}"/>
                             <Label Grid.Row="0" Grid.Column="3" Text="{Binding Estado}" Style="{StaticResource TableCellLabel}"/>
-                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding UsuarioActivo.Username}" Style="{StaticResource TableCellLabel}"/>
+                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding UsuarioActivo}" Style="{StaticResource TableCellLabel}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
