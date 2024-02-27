@@ -5,6 +5,6 @@ namespace MauiTODO.Services
     public interface ITareas
     {
         public Task<ObservableCollection<Tarea>> ObtenerTareas();
-        public Task<Boolean> checkLogin();
+        public Task<Boolean> CheckLogin();
     }
 }

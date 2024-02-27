@@ -1,12 +1,14 @@
 ﻿using MauiTODO.Models;
 using MauiTODO.Services;
+using System;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
-
-
+using System.Threading.Tasks;
+using System.Windows.Input;
 namespace MauiTODO.ViewModels
 {
-    public class LoginPageViewModel : TareaService, INotifyPropertyChanged
+    public class LoginPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -14,33 +16,32 @@ namespace MauiTODO.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private Command _loginCommand;
+        private ICommand _loginCommand;
         private UsuarioLogin _usuarioLogin;
-        private TareaService _loginService;
-        private bool _guardarInicioSesion;
+        private TareaService _tareaService;
 
-        public Command LoginCommand { get => _loginCommand; set => _loginCommand = value; }
+        public ICommand LoginCommand { get => _loginCommand; set => _loginCommand = value; }
         public UsuarioLogin UsuarioLogin { get => _usuarioLogin; set => _usuarioLogin = value; }
-        public TareaService LoginService { get => _loginService; set => _loginService = value; }
-        public bool GuardarInicioSesion { get => _guardarInicioSesion; set => _guardarInicioSesion = value; }
 
         public LoginPageViewModel()
         {
             UsuarioLogin = new UsuarioLogin();
-            LoginService = new TareaService();
+            _tareaService = new TareaService();
             InitializeCommands();
         }
 
         private void InitializeCommands()
         {
-            LoginCommand = new Command(async () => await Login(), () => CanLogin());
+            LoginCommand = new Command(async () => await Login());
         }
 
         private async Task Login()
         {
             UsuarioLogin.IsVisibleUserNameError = false;
             UsuarioLogin.UserNameError = "";
-            bool isLoggedIn = await LoginService.checkLogin();
+
+            // Llamar al servicio para verificar el inicio de sesión
+            bool isLoggedIn = await _tareaService.CheckLogin();
 
             if (!string.IsNullOrWhiteSpace(UsuarioLogin.Username) && !string.IsNullOrWhiteSpace(UsuarioLogin.Password))
             {
@@ -79,11 +80,6 @@ namespace MauiTODO.ViewModels
             {
                 Console.WriteLine($"Error al navegar a la página MainPage: {ex.Message}");
             }
-        }
-
-        private bool CanLogin()
-        {
-            return !string.IsNullOrWhiteSpace(UsuarioLogin.Username) && !string.IsNullOrWhiteSpace(UsuarioLogin.Password);
         }
     }
 }

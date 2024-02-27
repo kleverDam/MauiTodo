@@ -8,12 +8,12 @@
     <ContentPage.BindingContext>
         <ViewModel:LoginPageViewModel/>
     </ContentPage.BindingContext>
-
+    
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="220"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>    
         </Grid.RowDefinitions>
         <Path Stroke="#fff" Fill="#2ECC71" HorizontalOptions="Center" Data="m0.30001,0l449,0l0,128.48327c-122.5,64.30167 -332.5,65.89076 -449,7.2429c0,-45.25313 0,-90.47304 0,-135.72617z"  />
         <StackLayout>
@@ -40,35 +40,35 @@
                         <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="perfil_del_usuario.png" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding UsuarioLogin.Username, Mode=TwoWay}" Placeholder="Usuario" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry Text="{Binding UsuarioLogin.Username}" Placeholder="Usuario" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                     </StackLayout>
                 </Frame>
                 <Frame BackgroundColor="Transparent" BorderColor="LawnGreen" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
                     <StackLayout Orientation="Horizontal">
-                        <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                        <Frame   BackgroundColor="SkyBlue"  HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="password_icon.png" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding UsuarioLogin.Password, Mode=TwoWay}" Placeholder="Contraseña" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0" IsPassword="{Binding Source={x:Reference entryPassword}, Path=IsChecked}" />
-                        <CheckBox  IsChecked="True" x:Name="entryPassword"/>
+                        <Entry Text="{Binding UsuarioLogin.Password}" Placeholder="Contraseña" TextColor="Black" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0" IsPassword="{Binding Source={x:Reference entryPasword}, Path=IsChecked}" />
+                        <CheckBox  IsChecked="True" x:Name="entryPasword"/>
                     </StackLayout>
                 </Frame>
                 <Label Grid.Row="2" Text="{Binding UsuarioLogin.UserNameError}" IsVisible="{Binding UsuarioLogin.IsVisibleUserNameError}"  TextColor="Red" FontSize="Default" FontAttributes="Bold"  HorizontalOptions="Center" />
                 <StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
-                    <CheckBox IsChecked="{Binding GuardarInicioSesion, Mode=TwoWay}" />
+                    <CheckBox IsChecked="{Binding GuardarInicioSesion}" />
                     <Label Text="Guardar inicio de sesion" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                     <Label Text="Has olvidado tu contraseña" TextColor="#1D8348" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
-                    <Button Text="Acceder" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0"  Command="{Binding LoginCommand}"/>
+                    <Button Text="Acceder" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0"  Command="{Binding LoginComand}"/>
                     <!--<Button Text="Cancelar" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="20,15,0,0"  Command="{Binding CancelCommand}"/>-->
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">    
                     <Label Text="Crear cuenta" TextColor="DarkGray" FontSize="Small"/>
                     <Label Text="Iniciar sesion" Margin="15,0,0,0" TextColor="#1D8348"  FontAttributes="Bold"  FontSize="Small"/>
                 </StackLayout>
-
+                
             </StackLayout>
         </Grid>
-
+        
     </Grid>
-</ContentPage>    
+</ContentPage>      

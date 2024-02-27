@@ -9,14 +9,34 @@ namespace MauiTODO.Services
     {
         private string urlApi = "http://localhost:8016";
 
-        public async Task<bool> checkLogin()
+
+        public async Task<bool> CheckLogin()
         {
-            var client = new HttpClient();
-            var response = await client.GetAsync(urlApi+"/login");
-            var responseBody = await response.Content.ReadAsStringAsync();
-            JsonNode nodo = JsonNode.Parse(responseBody);
-            return (Boolean)nodo;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync($"{urlApi}/login");
+                    response.EnsureSuccessStatusCode();
+                    string responseLogin = await response.Content.ReadAsStringAsync();
+                    return Convert.ToBoolean(responseLogin);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en la verificación de inicio de sesión: {ex.Message}");
+                return false;
+            }
         }
+
+        //public async Task<bool> checkLogin()
+        //{
+        //    var client = new HttpClient();
+        //    var response = await client.GetAsync(urlApi+"/login");
+        //    var responseBody = await response.Content.ReadAsStringAsync();
+        //    JsonNode nodo = JsonNode.Parse(responseBody);
+        //    return (Boolean)nodo;
+        //}
 
         public async Task<ObservableCollection<Tarea>> ObtenerTareas()
         {
