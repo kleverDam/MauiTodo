@@ -1,41 +1,42 @@
-﻿namespace MauiTODO.Models
+﻿using MauiTODO.Helpers;
+
+namespace MauiTODO.Models
 {
     public class Tarea : NotifyBase
     {
-            private int _id;
-            private string _name;
-            private string _descripcion;
-            private string _estado_tarea;
-            private int _usuarioLogin;
 
-            // getter and setter
-            public int TareasId
-            {
-                get { return _id; }
-                set { _id = value; OnPropertyChanged(); }
-            }
-            public string Titulo
-            {
-                get { return _name; }
-                set { _name = value; OnPropertyChanged(); }
-            }
 
-            public string Descripcion
-            {
-                get { return _descripcion; }
-                set { _descripcion = value; OnPropertyChanged(); }
-            }
 
-            public string Estado
-            {
-                get { return _estado_tarea; }
-                set { _estado_tarea = value; OnPropertyChanged(); }
-            }
+        private int _id;
+        private string _name;
+        private string _descripcion;
+        private string _estado_tarea;
+        private bool _isVisibleTareaError;
+        private string _errorTarea;
+        private bool _isVisibleTareaExito;
+        private string _exitoTarea;
 
-            public int UsuarioActivo
+        public int id { get => _id; set { _id = value; OnPropertyChanged(); } }
+        public string name { get => _name; set { _name = value; OnPropertyChanged(); } }
+        public string descripcion { get => _descripcion; set { _descripcion = value; OnPropertyChanged(); } }
+        public string estado_tarea { get => _estado_tarea; set { _estado_tarea = value; OnPropertyChanged(); } }
+
+        public bool IsVisibleTareaError
         {
-            get { return _usuarioLogin; }
-            set { _usuarioLogin = value; OnPropertyChanged(); }
+            get => _isVisibleTareaError; set { _isVisibleTareaError = value; OnPropertyChanged(); }
+        }
+        public string ErrorTarea
+        {
+            get => _errorTarea; set { _errorTarea = value; OnPropertyChanged(); }
+        }
+
+        public bool IsVisibleTareaExito
+        {
+            get => _isVisibleTareaExito; set { _isVisibleTareaExito = value; OnPropertyChanged(); }
+        }
+        public string ExitoTarea
+        {
+            get => _exitoTarea; set { _exitoTarea = value; OnPropertyChanged(); }
         }
 
     }

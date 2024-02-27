@@ -1,5 +1,6 @@
-﻿using MauiTODO.Models;
-using MauiTODO.View;
+﻿using MauiTODO.Helpers;
+using MauiTODO.Models;
+using MauiTODO.Services;
 using System.Collections.ObjectModel;
 
 
@@ -11,8 +12,8 @@ namespace MauiTODO.ViewModels
         private Command _altaTareaComan;
         private Command _bajaTareaComan;
         private Command _editarTareaComan;
-        private Models.UsuarioLogin _usuario;
         private Models.Tarea _tarea;
+        private TareaService _tareaService;
         private ObservableCollection<Tarea> _tareaList;
         public Command CloseLoginComand { get => _closeLoginComan; set => _closeLoginComan = value; }
         public Command AltaTareaComan{ get => _altaTareaComan; set => _altaTareaComan = value; }
@@ -20,27 +21,18 @@ namespace MauiTODO.ViewModels
         public Command EditarTareaComan{ get => _editarTareaComan; set => _editarTareaComan = value; }
 
 
-        public UsuarioLogin UsuarioLogin { get => _usuario; set => _usuario = value; }
         public Tarea Tarea { get => _tarea; set => _tarea = value; }
-
-        //Borrar despues 
         public ObservableCollection<Tarea> Tareas { get => _tareaList; set => _tareaList = value;  }
 
         public HomePageViewModel()
         {
-            this.loadComan();
+
+            _tarea = new Tarea();
+            _tareaService = new TareaService();
+            this.LoadTareasAsync();
+            this.LoadCommands();  
         }
-        public HomePageViewModel(string usernameAndPassword)
-        {
-            //_usuario = new UsuarioLogin();
-            //var parts = usernameAndPassword.Split(',');
-            //if (parts.Length >= 2)
-            //{
-            //    UsuarioLogin.Username = parts[0];
-            //    UsuarioLogin.Password = parts[1];
-            //}
-           
-        }
+   
         public void loadComan()
         {
             _closeLoginComan = new Command(this.CloseLogin);
@@ -48,6 +40,53 @@ namespace MauiTODO.ViewModels
             _bajaTareaComan = new Command(this.CloseLogin);
             _editarTareaComan = new Command(this.CloseLogin);
 
+        }
+
+        public async void LoadTareasAsync()
+        {
+            try
+            {
+                Tareas = await _tareaService.ObtenerTareas();
+                if (Tarea == null)
+                {
+                    Tarea.IsVisibleTareaError = true;
+                    Tarea.ErrorTarea = "Error al cargar tarea";
+                }
+                else {
+                    Tarea.IsVisibleTareaExito = true;
+                    Tarea.ExitoTarea = "Tareas cargadas";
+                }
+            }
+            catch (Exception ex)
+            {
+                Tarea.IsVisibleTareaError = true;
+                Tarea.ErrorTarea = $"Error al obtener tareas: {ex.Message}";
+            }
+        }
+
+        private void LoadCommands()
+        {
+            _closeLoginComan = new Command(CloseLogin);
+            _altaTareaComan = new Command(AltaTarea);
+            _bajaTareaComan = new Command(BajaTarea);
+            _editarTareaComan = new Command(EditarTarea);
+        }
+
+        // Puedes agregar métodos para manejar otros comandos, como AltaTarea, BajaTarea, EditarTarea, etc.
+
+        private async void AltaTarea()
+        {
+            // Lógica para añadir una nueva tarea
+        }
+
+        private async void BajaTarea()
+        {
+            // Lógica para eliminar una tarea
+        }
+
+        private async void EditarTarea()
+        {
+            // Lógica para editar una tarea
         }
         private async void CloseLogin()
         {
@@ -65,21 +104,7 @@ namespace MauiTODO.ViewModels
                 Console.WriteLine($"Error al navegar a la página MainPage: {ex.Message}");
             }
         }
-        private async void AlraTarea()
-        {
-            try
-            {
-                if (Shell.Current != null)
-                {
-                    await Shell.Current.GoToAsync($"//AltaTareaPage");
-                }
-            }
-            catch (Exception ex)
-            {
-                // Manejar cualquier excepción que pueda ocurrir durante la navegación.
-                Console.WriteLine($"Error al dar de alta una tarea: {ex.Message}");
-            }
-        }
+       
      
     }
 }

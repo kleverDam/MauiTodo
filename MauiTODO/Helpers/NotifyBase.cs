@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MauiTODO.Models
+namespace MauiTODO.Helpers
 {
     public class NotifyBase : INotifyPropertyChanged
     {

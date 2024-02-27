@@ -68,10 +68,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Helpers\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="View\AltaEdicionDeTarea.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

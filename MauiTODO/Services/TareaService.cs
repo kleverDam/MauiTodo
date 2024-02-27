@@ -9,8 +9,10 @@ namespace MauiTODO.Services
     public class TareaService 
     {
         private string urlApi = "http://127.0.0.1:8000";
+        private static UsuarioLogin usuarioLogeado;
 
 
+        
         public async Task<bool> CheckLoginAsync(UsuarioLogin usuario)
         {
             try
@@ -22,6 +24,7 @@ namespace MauiTODO.Services
                     var response = await client.GetAsync(urlApi + "/login");
                     var responseLogin = await response.Content.ReadAsStringAsync();
                     JsonNode nodo = JsonNode.Parse(responseLogin);
+                    usuarioLogeado = usuario;
                     return (bool)nodo; 
                 }
             }
@@ -34,43 +37,28 @@ namespace MauiTODO.Services
         }
 
 
-
-        public async Task<int> get_usuario(UsuarioLogin usuario)
-        {
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    var dataAut = Convert.ToBase64String(Encoding.ASCII.GetBytes(usuario.Username + ":" + usuario.Password));
-                    client.DefaultRequestHeaders.Add("Authorization", "Basic " + dataAut);
-                    var response = await client.GetAsync(urlApi + "/get_usuario");
-                    var responseLogin = await response.Content.ReadAsStringAsync();
-                    JsonNode nodo = JsonNode.Parse(responseLogin);
-                    return (int)nodo;
-                }
-            }
-            catch (Exception ex)
-            {
-                usuario.IsVisibleUserNameError = true;
-                usuario.UserNameError = $"Error en el servidor {ex}" ;
-                
-                return -1;
-            }
-        }
-
-
-
-
-        public async Task<ObservableCollection<Tarea>> ObtenerTareas(UsuarioLogin usuario)
+        public async Task<ObservableCollection<Tarea>> ObtenerTareas()
         {
             var client= new HttpClient();
-            var response = await client.GetAsync(urlApi+"/tareas");
-            var responseBody = await response.Content.ReadAsStringAsync();
-            JsonNode nodos = JsonNode.Parse(responseBody);
-            JsonNode result = nodos["result"];
-            var tareaData = JsonSerializer.Deserialize<ObservableCollection<Tarea>>(result.ToJsonString());
-            return tareaData;
+            var dataAut = Convert.ToBase64String(Encoding.ASCII.GetBytes(usuarioLogeado.Username + ":" + usuarioLogeado.Password));
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + dataAut);
+            var response =  client.GetAsync(urlApi+"/tareas");
+            var responseBody = await response.Result.Content.ReadAsStringAsync();
+            JsonNode json = JsonNode.Parse(responseBody);
+            var tareas = JsonSerializer.Deserialize<ObservableCollection<Tarea>>(json.ToString());
+            return tareas;
         }
+        public async Task<bool> crearTarea(Tarea tarea)
+        {
+            var client = new HttpClient();
+            var dataAut = Convert.ToBase64String(Encoding.ASCII.GetBytes(usuarioLogeado.Username + ":" + usuarioLogeado.Password));
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + dataAut);
 
+            string json = JsonSerializer.Serialize(tarea);
+            StringContent contentTarea = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(this.urlApi + "/add_todo", contentTarea);
+            return response != null;
+        }
     }
 }
