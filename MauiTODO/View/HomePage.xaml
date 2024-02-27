@@ -60,6 +60,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
+            <Label Grid.Row="0" Grid.Column="0" Text="ID" Style="{StaticResource TableHeaderLabel}"/>
             <Label Grid.Row="0" Grid.Column="1" Text="Título" Style="{StaticResource TableHeaderLabel}"/>
             <Label Grid.Row="0" Grid.Column="2" Text="Descripción" Style="{StaticResource TableHeaderLabel}"/>
             <Label Grid.Row="0" Grid.Column="3" Text="Estado" Style="{StaticResource TableHeaderLabel}"/>

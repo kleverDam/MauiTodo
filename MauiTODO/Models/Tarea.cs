@@ -19,7 +19,7 @@ namespace MauiTODO.Models
         public int id { get => _id; set { _id = value; OnPropertyChanged(); } }
         public string name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string descripcion { get => _descripcion; set { _descripcion = value; OnPropertyChanged(); } }
-        public string estado_tarea { get => _estado_tarea; set { _estado_tarea = value; OnPropertyChanged(); } }
+        public string estado_tarea { get => _estado_tarea.Trim().Equals("1", StringComparison.OrdinalIgnoreCase) ? "Archivada" : "No Archivada"; set { _estado_tarea = value; OnPropertyChanged(); } }
 
         public bool IsVisibleTareaError
         {
