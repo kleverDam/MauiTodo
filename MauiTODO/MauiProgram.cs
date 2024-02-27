@@ -16,7 +16,7 @@ namespace MauiTODO
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            builder.Services.AddSingleton<ITareas, TareaService>();
+            //builder.Services.AddSingleton<ITareas, TareaService>();
             builder.Services.AddTransient<HomePage>();
 
 #if DEBUG

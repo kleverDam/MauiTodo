@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace MauiTODO.ViewModels
 {
-    public class HomePageViewModel
+    public class HomePageViewModel :NotifyBase
     {
         private Command _closeLoginComan;
         private Command _altaTareaComan;
@@ -13,12 +13,7 @@ namespace MauiTODO.ViewModels
         private Command _editarTareaComan;
         private Models.UsuarioLogin _usuario;
         private Models.Tarea _tarea;
-        //private Command _altaTarea;
-        //private Command _bajaTarea;
-        //private Command _editarTarea;
-        //private Boolean _isEditTarea;
-        //private Boolean _isArchived;
-
+        private ObservableCollection<Tarea> _tareaList;
         public Command CloseLoginComand { get => _closeLoginComan; set => _closeLoginComan = value; }
         public Command AltaTareaComan{ get => _altaTareaComan; set => _altaTareaComan = value; }
         public Command BajaTareaComan{ get => _bajaTareaComan; set => _bajaTareaComan = value; }
@@ -29,15 +24,11 @@ namespace MauiTODO.ViewModels
         public Tarea Tarea { get => _tarea; set => _tarea = value; }
 
         //Borrar despues 
-        private ObservableCollection<Tarea> _tareas;
-        public ObservableCollection<Tarea> Tareas { get => _tareas; set => _tareas = value; }
+        public ObservableCollection<Tarea> Tareas { get => _tareaList; set => _tareaList = value;  }
 
         public HomePageViewModel()
         {
-            _closeLoginComan = new Command(this.CloseLogin);
-            _altaTareaComan = new Command(this.CloseLogin);
-            _bajaTareaComan = new Command(this.CloseLogin);
-            _editarTareaComan = new Command(this.CloseLogin);
+            this.loadComan();
         }
         public HomePageViewModel(string usernameAndPassword)
         {
@@ -50,7 +41,14 @@ namespace MauiTODO.ViewModels
             //}
            
         }
+        public void loadComan()
+        {
+            _closeLoginComan = new Command(this.CloseLogin);
+            _altaTareaComan = new Command(this.CloseLogin);
+            _bajaTareaComan = new Command(this.CloseLogin);
+            _editarTareaComan = new Command(this.CloseLogin);
 
+        }
         private async void CloseLogin()
         {
             try
