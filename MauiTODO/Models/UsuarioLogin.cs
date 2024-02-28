@@ -1,5 +1,4 @@
 ﻿using MauiTODO.Helpers;
-using Microsoft.Maui.Controls.Handlers.Compatibility;
 namespace MauiTODO.Models
 {
     public class UsuarioLogin : NotifyBase

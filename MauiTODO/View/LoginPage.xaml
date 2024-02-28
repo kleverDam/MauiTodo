@@ -8,12 +8,12 @@
     <ContentPage.BindingContext>
         <ViewModel:LoginPageViewModel/>
     </ContentPage.BindingContext>
-    
+
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="220"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>    
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Path Stroke="#fff" Fill="#2ECC71" HorizontalOptions="Center" Data="m0.30001,0l449,0l0,128.48327c-122.5,64.30167 -332.5,65.89076 -449,7.2429c0,-45.25313 0,-90.47304 0,-135.72617z"  />
         <StackLayout>
@@ -62,13 +62,13 @@
                     <Button Text="Acceder" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0"  Command="{Binding LoginCommand}"/>
                     <!--<Button Text="Cancelar" BackgroundColor="#58D68D" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="20,15,0,0"  Command="{Binding CancelCommand}"/>-->
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">    
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
                     <Label Text="Crear cuenta" TextColor="DarkGray" FontSize="Small"/>
                     <Label Text="Iniciar sesion" Margin="15,0,0,0" TextColor="#1D8348"  FontAttributes="Bold"  FontSize="Small"/>
                 </StackLayout>
-                
+
             </StackLayout>
         </Grid>
-        
+
     </Grid>
 </ContentPage>      

@@ -10,7 +10,8 @@
                 <Setter Property="BackgroundColor" Value="#3498db"/>
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Padding" Value="9"/>
+                <Setter Property="Margin" Value="38,0,0,0"/>
             </Style>
 
             <Style TargetType="Label" x:Key="TableCellLabel">
@@ -23,20 +24,20 @@
         <ViewModel:HomePageViewModel/>
     </ContentPage.BindingContext>
 
-    <!--Menu-->
-    <ContentPage.MenuBarItems >
-        <MenuBarItem Text="Menu" >
-            <MenuFlyoutItem Text="Alta tarea" Command="{Binding ComandoAgregarUbicacion}"/>
-            <MenuFlyoutItem Text="Baja tarea" Command="{Binding ComandoEditarUbicacion}"/>
-            <MenuFlyoutItem Text="Editar tarea" Command="{Binding ComandoEliminarUbicacion}"/>
+    <!-- Menú -->
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Menu">
+            <MenuFlyoutItem Text="Alta tarea" Command="{Binding AltaTareaComan}"/>
+            <MenuFlyoutItem Text="Baja tarea" Command="{Binding BajaTareaComan}"/>
+            <MenuFlyoutItem Text="Editar tarea" Command="{Binding EditarTareaComan}"/>
         </MenuBarItem>
         <MenuBarItem Text="Usuario">
             <MenuFlyoutItem Text="Salir" Command="{Binding CloseLoginComand}"/>
         </MenuBarItem>
     </ContentPage.MenuBarItems>
-    <!--Contenido-->
-    <Grid RowSpacing="5">
 
+    <!-- Contenido -->
+    <Grid RowSpacing="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -49,24 +50,26 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Encabezado de la tabla -->
         <Grid Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="#3498db" Padding="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Text="ID" Style="{StaticResource TableHeaderLabel}"/>
             <Label Grid.Row="0" Grid.Column="1" Text="Título" Style="{StaticResource TableHeaderLabel}"/>
             <Label Grid.Row="0" Grid.Column="2" Text="Descripción" Style="{StaticResource TableHeaderLabel}"/>
             <Label Grid.Row="0" Grid.Column="3" Text="Estado" Style="{StaticResource TableHeaderLabel}"/>
-
         </Grid>
 
+        <!-- Lista de tareas -->
         <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Tareas}" SelectedItem="{Binding TareaSeleccionada}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -75,13 +78,15 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
+
                             <Grid.ColumnDefinitions>
-                       <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="4*"/>
-          <ColumnDefinition Width="4*"/>
-          <ColumnDefinition Width="4*"/>
-          <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4*"/>
                             </Grid.ColumnDefinitions>
+
                             <Label Grid.Row="0" Grid.Column="1" Text="{Binding id}" Style="{StaticResource TableCellLabel}"/>
                             <Label Grid.Row="0" Grid.Column="2" Text="{Binding name}" Style="{StaticResource TableCellLabel}"/>
                             <Label Grid.Row="0" Grid.Column="3" Text="{Binding descripcion}" Style="{StaticResource TableCellLabel}"/>
@@ -91,20 +96,19 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
+        <!-- Etiquetas de error y éxito -->
         <Grid Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="Transparent" Padding="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Etiqueta de error en rojo -->
             <Label Grid.Row="0" Grid.Column="0" Text="{Binding Tarea.ErrorTarea}" TextColor="Red" IsVisible="{Binding Tarea.IsVisibleTareaError}" />
-
-            <!-- Etiqueta de éxito en verde -->
             <Label Grid.Row="0" Grid.Column="1" Text="{Binding Tarea.ExitoTarea}" TextColor="Green" IsVisible="{Binding Tarea.IsVisibleTareaExito}" />
         </Grid>
     </Grid>

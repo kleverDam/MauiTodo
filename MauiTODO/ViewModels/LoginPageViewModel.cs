@@ -1,25 +1,19 @@
 ﻿using MauiTODO.Helpers;
 using MauiTODO.Models;
 using MauiTODO.Services;
-using MauiTODO.View;
-using System;
-using System.ComponentModel;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Input;
 namespace MauiTODO.ViewModels
 {
     public class LoginPageViewModel : NotifyBase
     {
-        
+
 
         private Command _loginCommand;
         private UsuarioLogin _usuarioLogin;
         private TareaService _tareaService;
 
-        public Command LoginCommand { get => _loginCommand; set => _loginCommand = value; }
-        public UsuarioLogin UsuarioLogin { get => _usuarioLogin; set => _usuarioLogin = value; }
+        public Command LoginCommand { get => _loginCommand; set {_loginCommand = value; OnPropertyChanged(); }
+}
+        public UsuarioLogin UsuarioLogin { get => _usuarioLogin; set {_usuarioLogin = value; OnPropertyChanged(); } }
 
         public LoginPageViewModel()
         {
@@ -34,19 +28,20 @@ namespace MauiTODO.ViewModels
             UsuarioLogin.UserNameError = "";
 
             // Llamar al servicio para verificar el inicio de sesión
-            
-            
+
+
 
             if (!string.IsNullOrWhiteSpace(UsuarioLogin.Username) && !string.IsNullOrWhiteSpace(UsuarioLogin.Password))
             {
                 bool isLoggedIn = await _tareaService.CheckLoginAsync(this.UsuarioLogin);
                 if (isLoggedIn)
                 {
-                     LoginAccepted();
+                    LoginAccepted();
                 }
                 else
                 {
-                    if (!UsuarioLogin.IsVisibleUserNameError) {
+                    if (!UsuarioLogin.IsVisibleUserNameError)
+                    {
                         UsuarioLogin.IsVisibleUserNameError = true;
                         UsuarioLogin.UserNameError = "Usuario o contraseña incorrectos";
                     }
@@ -66,6 +61,8 @@ namespace MauiTODO.ViewModels
                 if (Shell.Current != null)
                 {
                     await Shell.Current.GoToAsync("//MainPage");
+                    UsuarioLogin.Username = string.Empty;
+                    UsuarioLogin.Password = string.Empty;
                 }
                 else
                 {

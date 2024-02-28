@@ -6,13 +6,14 @@ using System.Text.Json.Nodes;
 
 namespace MauiTODO.Services
 {
-    public class TareaService 
+    public class TareaService
     {
         private string urlApi = "http://127.0.0.1:8000";
         private static UsuarioLogin usuarioLogeado;
+        private static bool isEdit=true;
 
 
-        
+
         public async Task<bool> CheckLoginAsync(UsuarioLogin usuario)
         {
             try
@@ -25,7 +26,7 @@ namespace MauiTODO.Services
                     var responseLogin = await response.Content.ReadAsStringAsync();
                     JsonNode nodo = JsonNode.Parse(responseLogin);
                     usuarioLogeado = usuario;
-                    return (bool)nodo; 
+                    return (bool)nodo;
                 }
             }
             catch (Exception ex)
@@ -39,26 +40,95 @@ namespace MauiTODO.Services
 
         public async Task<ObservableCollection<Tarea>> ObtenerTareas()
         {
-            var client= new HttpClient();
-            var dataAut = Convert.ToBase64String(Encoding.ASCII.GetBytes(usuarioLogeado.Username + ":" + usuarioLogeado.Password));
-            client.DefaultRequestHeaders.Add("Authorization", "Basic " + dataAut);
-            var response =  client.GetAsync(urlApi+"/tareas");
-            var responseBody = await response.Result.Content.ReadAsStringAsync();
-            JsonNode json = JsonNode.Parse(responseBody);
-            var tareas = JsonSerializer.Deserialize<ObservableCollection<Tarea>>(json.ToString());
-            return tareas;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var dataAut = Convert.ToBase64String(Encoding.ASCII.GetBytes(usuarioLogeado.Username + ":" + usuarioLogeado.Password));
+                    client.DefaultRequestHeaders.Add("Authorization", "Basic " + dataAut);
+                    var response = client.GetAsync(urlApi + "/tareas");
+                    var responseBody = await response.Result.Content.ReadAsStringAsync();
+                    JsonNode json = JsonNode.Parse(responseBody);
+                    var tareas = JsonSerializer.Deserialize<ObservableCollection<Tarea>>(json.ToString());
+                    return tareas;
+                }
+            }
+            catch (Exception ex)
+            {
+                usuarioLogeado.IsVisibleUserNameError = true;
+                usuarioLogeado.UserNameError = $"Error en el servidor {ex}";
+                return new ObservableCollection<Tarea>();
+            }
+
         }
-        public async Task<bool> crearTarea(Tarea tarea)
+        public async Task<bool> CrearTarea(Tarea tarea)
         {
-            var client = new HttpClient();
-            var dataAut = Convert.ToBase64String(Encoding.ASCII.GetBytes(usuarioLogeado.Username + ":" + usuarioLogeado.Password));
-            client.DefaultRequestHeaders.Add("Authorization", "Basic " + dataAut);
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{usuarioLogeado.Username}:{usuarioLogeado.Password}"));
+                    client.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                    var jsonBody = JsonSerializer.Serialize(tarea);
+                    var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync($"{urlApi}/todo/create", content);
+                    response.EnsureSuccessStatusCode();
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    return bool.Parse(responseBody);  // Asegúrate de que la API devuelva un booleano
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que pueda ocurrir durante la solicitud
+                Console.WriteLine($"Error al crear la tarea: {ex.Message}");
+                return false;
+            }
+        }
 
-            string json = JsonSerializer.Serialize(tarea);
-            StringContent contentTarea = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync(this.urlApi + "/add_todo", contentTarea);
-            return response != null;
+        public async Task<bool> BorrarTarea(Tarea tarea)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{usuarioLogeado.Username}:{usuarioLogeado.Password}"));
+                    client.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                    var response = await client.DeleteAsync($"{urlApi}/todo/delete/{tarea.id}");
+                    response.EnsureSuccessStatusCode();
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    return bool.Parse(responseBody);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que pueda ocurrir durante la solicitud
+                Console.WriteLine($"Error al eliminar la tarea: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> EditarTarea(Tarea tarea)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var credentials = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{usuarioLogeado.Username}:{usuarioLogeado.Password}"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Basic {credentials}");
+                    var json = JsonSerializer.Serialize(tarea);
+                    var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    var response = await client.PutAsync($"{urlApi}/todo/update?id={tarea.id}", content);
+                    response.EnsureSuccessStatusCode(); // Lanza excepción si hay error HTTP
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
         }
     }
+
 }
