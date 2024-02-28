@@ -27,10 +27,6 @@ namespace MauiTODO.ViewModels
             UsuarioLogin.IsVisibleUserNameError = false;
             UsuarioLogin.UserNameError = "";
 
-            // Llamar al servicio para verificar el inicio de sesión
-
-
-
             if (!string.IsNullOrWhiteSpace(UsuarioLogin.Username) && !string.IsNullOrWhiteSpace(UsuarioLogin.Password))
             {
                 bool isLoggedIn = await _tareaService.CheckLoginAsync(this.UsuarioLogin);

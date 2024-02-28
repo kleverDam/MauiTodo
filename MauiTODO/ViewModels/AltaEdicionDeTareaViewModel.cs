@@ -11,7 +11,7 @@ namespace MauiTODO.ViewModels
 {
     class AltaEdicionDeTareaViewModel : NotifyBase
     {
-        private static Tarea _tarea;
+        private Tarea _tarea;
         private string _textOk;
         private TareaService _tareaService;
         private Command _guadarTareaComan;
@@ -19,48 +19,55 @@ namespace MauiTODO.ViewModels
 
 
         public Tarea Tarea { get { return _tarea; } }
-        public AltaEdicionDeTareaViewModel()
+
+        public Command GuadarTareaComan { get => _guadarTareaComan; set => _guadarTareaComan = value; }
+        public Command CamcelComan { get => _camcelComan; set => _camcelComan = value; }
+        public TareaService TareaService { get => _tareaService; set => _tareaService = value; }
+        public string TextOk { get => _textOk; set => _textOk = value; }
+
+        public AltaEdicionDeTareaViewModel(Tarea tarea)
         {
-            if (Tarea == null){_tarea = new Tarea();}
-           
-            _tareaService = new TareaService();
-            this.loadComan();
+            if (Tarea == null) { _tarea = new Tarea(); }
+
+            TareaService = new TareaService();
+            this.LoadComan();
+            _tarea = tarea;
         }
 
-        public void loadComan()
+        public void LoadComan()
         {
-            _guadarTareaComan = new Command(this.Cancelar);
-            _camcelComan = new Command(this.AltaTarea);
+            GuadarTareaComan = new Command(this.Cancelar);
+            CamcelComan = new Command(this.AltaTarea);
         }
         private async void AltaTarea()
         {
-            this.limpiarMEnsaje();
+            this.LimpiarMEnsaje();
             try
             {
-                bool resultado = await _tareaService.CrearTarea(Tarea);
+                bool resultado = await TareaService.CrearTarea(Tarea);
 
                 if (resultado)
                 {
-                    this.mensajeExito(true, "Alta de tarea correcta");
+                    this.MensajeExito(true, "Alta de tarea correcta");
                 }
                 else
                 {
-                    this.mensajeError(true, "Alta de tarea incorrecta");
+                    this.MensajeError(true, "Alta de tarea incorrecta");
                 }
             }
             catch (Exception ex)
             {
-                this.mensajeError(true, $"Error inesperado {ex}");
+                this.MensajeError(true, $"Error inesperado {ex}");
             }
         }
 
-        private async void Cancelar()
-        { 
+        private void Cancelar()
+        {
             Tarea.IsEdit = false;
 
         }
 
-            public void limpiarMEnsaje()
+        public void LimpiarMEnsaje()
         {
             Tarea.IsVisibleTareaError = false;
             Tarea.IsVisibleTareaExito = false;
@@ -68,12 +75,12 @@ namespace MauiTODO.ViewModels
             Tarea.ErrorTarea = "";
         }
 
-        public void mensajeExito(Boolean b, string mensaje)
+        public void MensajeExito(Boolean b, string mensaje)
         {
             Tarea.IsVisibleTareaExito = b;
             Tarea.ExitoTarea = mensaje;
         }
-        public void mensajeError(Boolean b, string mensaje)
+        public void MensajeError(Boolean b, string mensaje)
         {
             Tarea.IsVisibleTareaError = b;
             Tarea.ErrorTarea = mensaje;
