@@ -84,7 +84,7 @@ namespace MauiTODO.ViewModels
                 if (Shell.Current != null)
                 {
                     if (TareaSeleccionada != null) { 
-                        
+                        TareaSeleccionada.IsEdit= true;
                     }
                     await Shell.Current.GoToAsync($"//AltaEdicionTarea");
                 }

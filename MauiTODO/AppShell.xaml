@@ -6,19 +6,19 @@
     xmlns:viewPage="clr-namespace:MauiTODO.View"
     xmlns:local="clr-namespace:MauiTODO"
     Shell.FlyoutBehavior="Flyout">
-    
+
     <ShellContent
-    Title="Login"
-    ContentTemplate="{DataTemplate viewPage:LoginPage}"
-    Route="LoginPage"/>
+        Title="Login"
+        ContentTemplate="{DataTemplate viewPage:LoginPage}"
+        Route="LoginPage"/>
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate viewPage:HomePage}"
         Route="MainPage"/>
     <ShellContent
-    Title="Home"
-    ContentTemplate="{DataTemplate viewPage:AltaEdicionDeTarea}"
-    Route="AltaEdicionTarea"/>
+        Title="AltaEdicionTarea"
+        ContentTemplate="{DataTemplate viewPage:AltaEdicionDeTarea}"
+        Route="AltaEdicionTarea"/>
 
 </Shell>

@@ -11,8 +11,8 @@
 
     <StackLayout>
         <!-- Campos del formulario -->
-        <Entry Placeholder="Nombre" Text="{Binding Tarea.name}" Placeholder="Nombre Tarea" />
-        <Entry Placeholder="Descripción" Text="{Binding Tarea.descripcion}"  Placeholder="Descripción"/>
+        <Entry Placeholder="Nombre" Text="{Binding Tarea.name}"/>
+        <Entry Placeholder="Descripción" Text="{Binding Tarea.descripcion}"/>
 
         <!-- Botones de acción -->
         <Button Text="{Binding TextOk}" Command="{Binding GuardarTareaComand}" />
