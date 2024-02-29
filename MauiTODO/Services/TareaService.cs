@@ -8,9 +8,8 @@ namespace MauiTODO.Services
 {
     public class TareaService
     {
-        private string urlApi = "http://127.0.0.1:8000";
+        private readonly string urlApi = "http://127.0.0.1:8000";
         private static UsuarioLogin usuarioLogeado;
-        private static bool isEdit=true;
 
 
 
@@ -37,6 +36,34 @@ namespace MauiTODO.Services
             }
         }
 
+        public async Task<Tarea> GetTareaId(string tareaId)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{usuarioLogeado.Username}:{usuarioLogeado.Password}"));
+                    client.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                    var response = await client.GetAsync($"{urlApi}/tareas/{tareaId}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseBody = await response.Content.ReadAsStringAsync();
+                        return JsonSerializer.Deserialize<Tarea>(responseBody);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error al obtener tarea: {response.StatusCode}");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error al obtener detalles de la tarea: {ex.Message}");
+                return null;
+            }
+        }
 
         public async Task<ObservableCollection<Tarea>> ObtenerTareas()
         {

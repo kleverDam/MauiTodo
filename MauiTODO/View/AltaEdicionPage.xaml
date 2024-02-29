@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModel="clr-namespace:MauiTODO.ViewModels"
-             x:Class="MauiTODO.View.AltaEdicionDeTarea">
+             x:Class="MauiTODO.View.AltaEdicionPage"
+             Title="AltaEdicionPage">
 
-    <ContentView.BindingContext>
+
+    <ContentPage.BindingContext>
         <ViewModel:AltaEdicionDeTareaViewModel/>
-    </ContentView.BindingContext>
+    </ContentPage.BindingContext>
 
 
     <StackLayout>
         <!-- Campos del formulario -->
-        <Entry Placeholder="Nombre" Text="{Binding Tarea.name}"/>
-        <Entry Placeholder="Descripción" Text="{Binding Tarea.descripcion}"/>
+        <Entry Placeholder="Nombre" Text="{Binding TareaName}"/>
+        <Entry Placeholder="Descripción" Text="{Binding TareaDesc}"/>
 
         <!-- Botones de acción -->
-        <Button Text="{Binding TextOk}" Command="{Binding GuardarTareaComand}" />
+        <Button Text="{Binding GuardarCrearText}" Command="{Binding GuadarTareaComan}" />
         <Button Text="Cancelar" Command="{Binding CancelarComand}" />
         <!-- Notificaciones -->
         <Label Text="{Binding Tarea.ErrorTarea}" TextColor="Red" IsVisible="{Binding Tarea.IsVisibleTareaError}" />
         <Label Text="{Binding Tarea.ExitoTarea}" TextColor="Green" IsVisible="{Binding Tarea.IsVisibleTareaExito}" />
     </StackLayout>
-</ContentView>
+</ContentPage>

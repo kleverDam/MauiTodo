@@ -26,11 +26,12 @@
 
     <!-- Menú -->
     <ContentPage.MenuBarItems>
-        <MenuBarItem Text="Menu">
+        <!--Menu clausurado por problemas tecnicos :(-->
+        <!--<MenuBarItem Text="Menu">
             <MenuFlyoutItem Text="Alta tarea" Command="{Binding AltaTareaComan}"/>
             <MenuFlyoutItem Text="Baja tarea" Command="{Binding BajaTareaComan}"/>
             <MenuFlyoutItem Text="Editar tarea" Command="{Binding EditarTareaComan}"/>
-        </MenuBarItem>
+        </MenuBarItem>-->
         <MenuBarItem Text="Usuario">
             <MenuFlyoutItem Text="Salir" Command="{Binding CloseLoginComand}"/>
         </MenuBarItem>

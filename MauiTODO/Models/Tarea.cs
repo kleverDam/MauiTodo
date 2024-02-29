@@ -15,9 +15,7 @@ namespace MauiTODO.Models
         private string _errorTarea;
         private bool _isVisibleTareaExito;
         private string _exitoTarea;
-        private bool _isEdit;
-
-        public bool IsEdit { get => _isEdit; set { _isEdit = value; OnPropertyChanged(); }}
+       
         public int id { get => _id; set { _id = value; OnPropertyChanged(); } }
         public string name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string descripcion { get => _descripcion; set { _descripcion = value; OnPropertyChanged(); } }

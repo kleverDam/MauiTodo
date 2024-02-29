@@ -1,8 +1,10 @@
 ﻿using MauiTODO.Helpers;
 using MauiTODO.Models;
 using MauiTODO.Services;
+using MauiTODO.View;
 using System.Collections.ObjectModel;
-
+using System.Text.Json;
+using System.Threading;
 
 namespace MauiTODO.ViewModels
 {
@@ -81,13 +83,7 @@ namespace MauiTODO.ViewModels
             this.limpiarMEnsaje();
             try
             {
-                if (Shell.Current != null)
-                {
-                    if (TareaSeleccionada != null) { 
-                        TareaSeleccionada.IsEdit= true;
-                    }
-                    await Shell.Current.GoToAsync($"//AltaEdicionTarea");
-                }
+                await Shell.Current.GoToAsync("//AltaEdicionPage");
             }
             catch (Exception ex)
             {
@@ -102,7 +98,7 @@ namespace MauiTODO.ViewModels
             {
                 if (TareaSeleccionada != null)
                 {
-                    // Usa Result para esperar la tarea asíncrona de manera síncrona
+                  
                     bool resultado = _tareaService.BorrarTarea(TareaSeleccionada).Result;
 
                     if (resultado)
@@ -130,24 +126,18 @@ namespace MauiTODO.ViewModels
             this.limpiarMEnsaje();
             try
             {
-                if (TareaSeleccionada != null)
+                if (Shell.Current != null)
                 {
-                    // Puedes modificar la tarea y luego llamar al método de edición del servicio
-                    Tarea tareaEditada = new Tarea(/* Nuevas propiedades de la tarea */);
-                    bool resultado = await _tareaService.EditarTarea(tareaEditada);
-
-                    if (resultado)
+                    if (TareaSeleccionada != null)
                     {
-                        this.mensajeExito(true, $"Tarea editada con exito");
+
+                        await Shell.Current.GoToAsync("//AltaEdicionPage", new Dictionary<string, object> { { "Tareaid", TareaSeleccionada } });
+
                     }
                     else
                     {
-                        this.mensajeError(true, $"Error al Editar la tarea");
+                        this.mensajeError(true, "");
                     }
-                }
-                else
-                {
-                    this.mensajeError(true, $"Debe seleccionar una tarea antes");
                 }
             }
             catch (Exception ex)

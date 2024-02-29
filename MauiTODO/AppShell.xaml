@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewPage="clr-namespace:MauiTODO.View"
     xmlns:local="clr-namespace:MauiTODO"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Login"
@@ -17,8 +17,8 @@
         ContentTemplate="{DataTemplate viewPage:HomePage}"
         Route="MainPage"/>
     <ShellContent
-        Title="AltaEdicionTarea"
-        ContentTemplate="{DataTemplate viewPage:AltaEdicionDeTarea}"
-        Route="AltaEdicionTarea"/>
+        Title="AltaEdicion"
+        ContentTemplate="{DataTemplate viewPage:AltaEdicionPage}"
+        Route="AltaEdicionPage"/>
 
 </Shell>

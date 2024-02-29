@@ -68,13 +68,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\AltaEdicionDeTarea.xaml.cs">
-	    <DependentUpon>AltaEdicionDeTarea.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="View\AltaEdicionDeTarea.xaml">
+	  <MauiXaml Update="View\AltaEdicionPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\HomePage.xaml">
